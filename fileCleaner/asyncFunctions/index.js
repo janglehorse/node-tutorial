@@ -8,6 +8,10 @@ const ONE_WEEK_AGO = new Date();
 ONE_WEEK_AGO.setDate(ONE_WEEK_AGO.getDate() - 7); 
 
 module.exports = {
+    /**
+     * Uses node's async methods to write a file and then update the timestamps
+     * @param {index} i - index to name the file and create mock content as well as the interval by which the timestamp will be decremented
+     */
     writeFileDecrementTimeStamp: function(i) {
         return new Promise((resolve, reject) => {
             const filename = path.join(LOGS_PATH, `log_${i}`);
@@ -27,6 +31,9 @@ module.exports = {
             });
         });
     },
+    /**
+     * uses node's asynchronous methods to read through all the log files and delete any that are older than 7 days
+     */
     cleanup: function() {
         const files = fs.readdirSync(LOGS_PATH);
         files.forEach(filename => {
